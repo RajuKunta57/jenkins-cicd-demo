@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                echo 'Hello from GitHub + Jenkins - AUTOMATIC BUILD!'
+                echo 'Hello from GitHub + Jenkins - AUTOMATIC BUILD! 3rd time'
             }
         }
 
