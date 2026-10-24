@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                echo 'Hello from GitHub + Jenkins - AUTOMATIC BUILD!'
+                echo 'Hello from Jenkins!'
             }
         }
 
@@ -28,10 +28,12 @@ pipeline {
 
         stage('SonarQube Cloud Analysis') {
             steps {
-                withCredentials([string(
-                    credentialsId: 'sonarcloud-token',
-                    variable: 'SONAR_TOKEN'
-                )]) {
+                withCredentials([
+                    string(
+                        credentialsId: 'sonarcloud-token',
+                        variable: 'SONAR_TOKEN'
+                    )
+                ]) {
                     sh '''
                         mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
                           -Dsonar.organization=$SONAR_ORGANIZATION \
@@ -41,15 +43,6 @@ pipeline {
                     '''
                 }
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build and SonarQube analysis completed successfully.'
-        }
-        failure {
-            echo 'Pipeline failed. Check the stage logs.'
         }
     }
 }
